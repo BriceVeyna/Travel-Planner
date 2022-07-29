@@ -4,7 +4,7 @@ const {Location, Traveller, Trips} = require('../../models')
 router.get('/', async (req,res) => {
     try{
         const travellerData = await Traveller.findAll({
-            include: [{model: Trips}]
+            include: [{model: Trips},{model: Location}]
         })
         res.status(200).json(travellerData)
     } catch (err) {
@@ -24,7 +24,7 @@ router.post('/', async (req,res) => {
 router.get('/:id', async (req,res) => {
     try {
         const travellerData = await Traveller.findByPK(req.params.id, {
-            include: [{model: trips}]
+            include: [{model: Trips},{model: Location}]
         })
         if(!travellerData) {
             res.status(404).json({message: "No traveller found with id!"})
